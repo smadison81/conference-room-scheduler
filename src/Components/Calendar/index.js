@@ -29,8 +29,9 @@ export default class Calendar extends React.Component {
 
   render() {
     return (
-      <Col xs="9">
+      <Col md="10" style={{backgroundColor:"white"}}>
       <div id="loading">loading...</div>
+      <div className="cal">
         <FullCalendar
           schedulerLicenseKey="0855724963-fcs-1571147580"
           plugins={[
@@ -41,7 +42,7 @@ export default class Calendar extends React.Component {
             resourceTimeGridPlugin,
             bootstrap
           ]}
-          defaultView="resourceTimeGridDay"
+          defaultView="timeGridWeek"
           customButtons={{
             myCustomButton: {
               text: "Reserve a Time",
@@ -55,7 +56,6 @@ export default class Calendar extends React.Component {
             center: "title",
             right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek"
           }}
-          themeSystem='bootstrap'
           editable= "true"
           droppable= "true"
           navLinks="true"
@@ -66,6 +66,7 @@ export default class Calendar extends React.Component {
           ref={this.calendarComponentRef}
           
         />
+        </div>
       </Col>
     );
   }

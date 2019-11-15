@@ -21,6 +21,14 @@
   color: #09d3ac;
 }
 
-.container {
+.concon {
   margin-top: 10px;
+  background-color: #474f46
+}
+
+
+.jumbotron{
+  margin-bottom:5px;
+  height: 250px;
+  background-image: url(./images/xTime-For-Meeting.jpg.pagespeed.ic.z2V5Qh8QWe.jpg)
 }

@@ -1,15 +1,19 @@
 import React from "react";
-import './style.css'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-
-
+import "./style.css";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import Jumbotron from "react-bootstrap/Jumbotron";
+import Container from "react-bootstrap/Container";
 
 
 function Navbar() {
   return (
-   <Row style={{ marginBottom: "10px" }}>
+    <Jumbotron fluid>
+      <Container>
+      <img className="mda" src={require("../../images/MDAndersonBlk.png")} alt=""/>
+        <div className="lead">Division of Cancer Medicine Conference Room Reservation System </div>
+      <Row style={{ marginBottom: "10px" }}>
         <Col>
           <Card>
             <Card.Body>Conference Room Scheduler</Card.Body>
@@ -21,6 +25,8 @@ function Navbar() {
           </Card>
         </Col>
       </Row>
+      </Container>
+    </Jumbotron>
   );
 }
 

@@ -5,8 +5,6 @@ import Sidenav from './Components/Sidenav'
 import Calendar from './Components/Calendar'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -17,7 +15,7 @@ import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
   return (
-    <Container>
+    <Container className="concon">
      <Navbar />
      <Row>
      <Sidenav />
