@@ -1,49 +1,28 @@
 {
-  "name": "react-template",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.25",
-    "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.7",
-    "@fullcalendar/bootstrap": "^4.3.0",
-    "@fullcalendar/core": "^4.3.1",
-    "@fullcalendar/daygrid": "^4.3.0",
-    "@fullcalendar/interaction": "^4.0.1",
-    "@fullcalendar/moment": "^4.3.0",
-    "@fullcalendar/moment-timezone": "^4.3.0",
-    "@fullcalendar/react": "^4.3.0",
-    "@fullcalendar/resource-timegrid": "^4.3.0",
-    "@fullcalendar/resource-timeline": "^4.3.0",
-    "@fullcalendar/timegrid": "^4.3.0",
-    "bootstrap": "^4.3.1",
-    "font-awesome": "^4.7.0",
-    "moment": "^2.24.0",
-    "moment-timezone": "^0.5.25",
-    "react": "^16.11.0",
-    "react-bootstrap": "^1.0.0-beta.14",
-    "react-dom": "^16.11.0",
-    "react-scripts": "3.2.0"
-  },
+  "name": "mern",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.7"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.3.16",
+    "if-env": "^1.0.4"
   }
 }
