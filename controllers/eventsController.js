@@ -1,20 +1,36 @@
 const db = require("../models");
 
-// Defining methods for the CalendarController
+// Defining methods for the booksController
 module.exports = {
-  findAll: () => {
-    return db.Events.find({});
+  findAll: function(req, res) {
+    db.Events
+      .find(req.query)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
-  findById: (id) => {
-    return db.Events.findById({_id: id}); 
+  findById: function(req, res) {
+    db.Events
+      .findById(req.params.id)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
-  create: (newCalendar) => {
-    return db.Events.create(newEvents);
+  create: function(req, res) {
+    db.Events
+      .create(req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
-  deleteOne: (id) => {
-    return db.Events.findOneAndDelete({_id: id});
+  update: function(req, res) {
+    db.Events
+      .findOneAndUpdate({ _id: req.params.id }, req.body)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   },
-  updateOne: (id, data) => {
-    return db.Events.findOneAndUpdate({ _id: id }, data);
+  remove: function(req, res) {
+    db.Events
+      .findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   }
 };

@@ -10,7 +10,9 @@ import momentPlugin from "@fullcalendar/moment";
 import Col from "react-bootstrap/Col";
 import Modal from "react-bootstrap/Modal"
 import Button from "react-bootstrap/Button"
-import axios from "axios";
+import API from "../../utils/API"
+import moment from "moment"
+
 
 import "./style.css";
 
@@ -23,41 +25,41 @@ export default class Calendar extends React.Component {
 
   state = {
     calendarWeekends: true,
-    calendarEvents: [
-      // initial event data
-      { title: "Event Now", start: new Date() }
-    ],
-    modal: false
+    calendarEvent: [],
+    start: "",
+    end: "",
+    title: "",
+    description: ""
   };
 
   componentDidMount() {
-    axios
-      .get("/events")
-      .then(response => {
-        this.setState({ event: response.data });
-        console.log({ calendarEvents: response.data });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    API.getEvents(this.props.calendarEvent)
+    .then(res => {
+      this.setState({ calendarEvent: res.data });
+      console.log({ calendarEvent: res.data });
+    })
+    .catch(function(error) {
+      console.log(error); 
+    });
   }
+
+
 
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
-
   handleEventClick = ({ event, el }) => {
     this.setState({event: event, modal: true})
   };
 
   handleDateClick = arg => {
     // eslint-disable-next-line no-restricted-globals
-    if (confirm("Would you like to add an event to " + arg.dateStr + " ?")) {
+    if (confirm("Would you like to add an event to " + moment(arg.dateStr).format('LLL') + " ?")) {
       this.setState({
         // add new event data
-        calendarEvents: this.state.calendarEvents.concat({
+        calendarEvent: this.state.calendarEvent.concat({
           // creates a new array
-          title: "Poop Snake",
+          title: "New Event",
           start: arg.date,
           allDay: arg.allDay
         })
@@ -100,26 +102,12 @@ export default class Calendar extends React.Component {
             eventLimit="true"
             weekends={this.state.calendarWeekends}
             dateClick={this.handleDateClick}
-            events={this.state.calendarEvents}
+            events={this.state.calendarEvent}
             ref={this.calendarComponentRef}
             eventClick={this.handleEventClick}
             nowIndicator='true'
             height='parent'
           />
-          <Modal isOpen={this.state.modal} toggle={this.toggle}>
-            <Modal.Header toggle={this.toggle}>
-              EVENT TITLE SHOULD GO HERE: {this.state.calendarEvents.title}
-            </Modal.Header>
-            <Modal.Body>
-              <div>EVENT INFO SHOULD GO HERE: {this.state.calendarEvents.start}</div>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button color="primary">Do Something</Button>{" "}
-              <Button color="secondary" onClick={this.toggle}>
-                Cancel
-              </Button>
-            </Modal.Footer>
-          </Modal> 
         </div>
       </Col>
     );
