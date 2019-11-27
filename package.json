@@ -23,9 +23,14 @@
     "axios": "^0.18.0",
     "body-parser": "^1.19.0",
     "express": "^4.16.3",
-    "fullcalendar-reactwrapper": "^1.0.7",
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",
-    "reactstrap": "^8.1.1"
+    "prop-types": "^15.7.2",
+    "react": "^15.1.1",
+    "react-datepicker": "^2.10.1",
+    "react-dom": "^15.1.1",
+    "react-responsive-modal": "^4.0.1",
+    "react-select": "^3.0.8",
+    "sweetalert2": "^9.4.0"
   }
 }
