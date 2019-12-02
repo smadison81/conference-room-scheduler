@@ -6,15 +6,14 @@ import interactionPlugin from "@fullcalendar/interaction";
 import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import bootstrap from "@fullcalendar/bootstrap";
-import momentPlugin from "@fullcalendar/moment";
 import Col from "react-bootstrap/Col";
 import Modal from "react-responsive-modal";
+// import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import API from "../../utils/API";
 import moment from "moment";
 import DatePicker from "react-datepicker";
-import Select from 'react-select';
 import Alert from "sweetalert2";
 
 import "./style.css";
@@ -42,13 +41,14 @@ export default class Calendar extends React.Component {
     API.getEvents()
       .then(res => {
         this.setState({ calendarEvent: res.data });
-        console.log((res.data))
+        console.log(res.data);
       })
       .catch(err => console.log(err));
   };
 
   openModal = () => {
     this.setState({ modalIsOpen: true });
+    console.log("hi");
   };
 
   closeModal = () => {
@@ -75,73 +75,69 @@ export default class Calendar extends React.Component {
     this.setState({ description: event.target.value });
   };
 
- handleEventClick = calendarEvent => {
-  console.log(calendarEvent.event)
-   Alert.fire({
-     title: calendarEvent.event.title,
-     html:
-       `<div class="table-responsive">
+  handleEventClick = calendarEvent => {
+    console.log(calendarEvent.event);
+    Alert.fire({
+      title: calendarEvent.event.title,
+      html:
+        `<div class="table-responsive">
      <table class="table">
      <tbody>
      <tr >
      <td>Title</td>
      <td><strong>` +
-     calendarEvent.event.title +
-       `</strong></td>
-     </tr>`
-      +
-      `
+        calendarEvent.event.title +
+        `</strong></td>
+     </tr>` +
+        `
      <tr >
      <td>Description</td>
      <td><strong>` +
-     calendarEvent.event.extendedProps.description +
-       `</strong></td>
+        calendarEvent.event.extendedProps.description +
+        `</strong></td>
      </tr>
      <tr >
      <td>Start Time</td>
      <td><strong>
      ` +
-     moment(calendarEvent.event.start).format('LLLL') +
-       `
+        moment(calendarEvent.event.start).format("LLLL") +
+        `
      </strong></td>
      </tr>
      <tr >
      <td>End Time</td>
      <td><strong>
      ` +
-     moment(calendarEvent.event.end).format('LLLL') +
-       `
+        moment(calendarEvent.event.end).format("LLLL") +
+        `
      </strong></td>
      </tr>
      </tbody>
      </table>
      </div>`,
 
-     showCancelButton: true,
-     confirmButtonColor: "#d33",
-     cancelButtonColor: "#3085d6",
-     confirmButtonText: "Remove Event",
-     cancelButtonText: "Close"
-   })
-     .then(result => {
-       if (result.value) {
-         calendarEvent.event.remove(); // It will remove event from the calendar
-         API.deleteEvent(calendarEvent.event.extendedProps._id)
-         .then(
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Remove Event",
+      cancelButtonText: "Close"
+    }).then(result => {
+      if (result.value) {
+        calendarEvent.event.remove(); // It will remove event from the calendar
+        API.deleteEvent(calendarEvent.event.extendedProps._id).then(
           this.getEvents()
-         )
-         Alert.fire("Deleted!", "Your Event has been deleted.", "success");
-       }
-     });
+        );
+        Alert.fire("Deleted!", "Your Event has been deleted.", "success");
+      }
+    });
   };
 
-
   add = e => {
+    e.preventDefault();
     let end = this.state.end ? this.state.end : this.state.start;
     if (end < this.state.start) {
       end = this.state.start;
     }
-    e.preventDefault();
     API.addEvent({
       title: this.state.title,
       start: this.state.start,
@@ -176,10 +172,10 @@ export default class Calendar extends React.Component {
             defaultView="timeGridWeek"
             customButtons={{
               myCustomButton: {
-                  text: 'Add Event',
-                  click: this.openModal
-              },
-          }}
+                text: "Add Event",
+                click: this.openModal
+              }
+            }}
             header={{
               left: "prev,next today,myCustomButton",
               center: "title",
@@ -198,48 +194,61 @@ export default class Calendar extends React.Component {
             height="parent"
             eventDrop={this.drop}
           />
-          <Modal
-            open={this.state.modalIsOpen}
-            onClose={this.closeModal}
-          >
+          <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
             {" "}
             <Form>
-              <b>Start Date: </b>
-              <DatePicker
-                selected={this.state.start}
-                onChange={this.handleStartChange}
-                showTimeSelect
-                dateFormat="Pp"
-              />
-              {/* <br /> */}
-              <b>End Date: </b>
-              <DatePicker
-                selected={this.state.end}
-                onChange={this.handleEndChange}
-                showTimeSelect
-                dateFormat="Pp"
-              />
+              <div>
+                <h2>Add Event</h2>
+              </div>
+              <hr />
+              <div className="row">
+          
+                  <div className="form-group">
+                    <b>Start Date: </b>
+                    <DatePicker
+                      className="form-control"
+                      selected={this.state.start}
+                      onChange={this.handleStartChange}
+                      showTimeSelect
+                      dateFormat="Pp"
+                    />
+                    {/* <br /> */}
+                  </div>
+                
+                
+                  <div className="form-group">
+                    <b>End Date: </b>
+                    <DatePicker
+                      className="form-control"
+                      selected={this.state.end}
+                      onChange={this.handleEndChange}
+                      showTimeSelect
+                      dateFormat="Pp"
+                    />
+                  </div>
+              
+              </div>
               <br />
-              <span>
+              <div className="form-group">
                 <b>Event Title: </b>
                 <input
+                  className="form-control"
                   type="text"
                   value={this.state.title}
                   onChange={this.handleTitleChange}
-                  style={{ maxWidth: "183.33px" }}
                 />
-              </span>
+              </div>
               <br />
-              <br />
-              <span>
+
+              <div className="form-group">
                 <b>Event Description: </b>
-                <input
+                <textarea
+                  className="form-control"
                   type="text"
                   value={this.state.description}
                   onChange={this.handleDescriptionChange}
-                  style={{ maxWidth: "183.33px" }}
                 />
-              </span>
+              </div>
               <br />
               <Button
                 className=" btn-large hoverable grey darken-2"
