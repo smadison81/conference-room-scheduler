@@ -8,7 +8,6 @@ import resourceTimeGridPlugin from "@fullcalendar/resource-timegrid";
 import bootstrap from "@fullcalendar/bootstrap";
 import Col from "react-bootstrap/Col";
 import Modal from "react-responsive-modal";
-// import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import API from "../../utils/API";
@@ -51,7 +50,7 @@ export default class Calendar extends React.Component {
     let isToday = moment(date).isSame(moment(), "day");
     if (isToday) {
       let nowAddOneHour = moment(new Date())
-        .add({ hours: 1 })
+        .add({ hours: .5 })
         .toDate();
       return nowAddOneHour;
     }
@@ -235,11 +234,11 @@ export default class Calendar extends React.Component {
                     showTimeSelect
                     dateFormat="Pp"
                     minDate={new Date()}
-                    minTime={this.state.minTime}
-                    maxTime={moment()
-                      .endOf("day")
-                      .toDate()}
-                    timeIntervals={60}
+                    // minTime={this.state.minTime}
+                    // maxTime={moment()
+                    //   .endOf("day")
+                    //   .toDate()}
+                    
                   />
                   {/* <br /> */}
                 </div>
@@ -254,11 +253,11 @@ export default class Calendar extends React.Component {
                     showTimeSelect
                     dateFormat="Pp"
                     minDate={new Date()}
-                    minTime={this.state.minTime}
-                    maxTime={moment()
-                      .endOf("day")
-                      .toDate()}
-                    timeIntervals={30}
+                    // minTime={this.state.minTime}
+                    // maxTime={moment()
+                    //   .endOf("day")
+                    //   .toDate()}
+                  
                   />
                 </div>
               </div>
