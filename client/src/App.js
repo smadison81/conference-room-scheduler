@@ -1,27 +1,18 @@
 import React from "react";
-import "./App.css";
-import Navbar from './Components/Navbar'
-import Sidenav from './Components/Sidenav'
-import Calendar from './Components/Calendar'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-
-
-
-
-
-
-
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Main from "./Pages/Main";
+import Conf from "./Pages/Conf";
 
 function App() {
   return (
-    <Container className="concon">
-     <Navbar />
-     <Row>
-     <Sidenav />
-     <Calendar />
-     </Row>
-    </Container>
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route exact path="/conf" component={Conf} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

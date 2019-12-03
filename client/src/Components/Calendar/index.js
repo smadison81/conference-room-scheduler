@@ -157,7 +157,6 @@ export default class Calendar extends React.Component {
   render() {
     return (
       <Col md="10" style={{ backgroundColor: "white" }}>
-        <div id="loading">loading...</div>
         <div className="cal">
           <FullCalendar
             schedulerLicenseKey="0855724963-fcs-1571147580"
@@ -193,6 +192,8 @@ export default class Calendar extends React.Component {
             nowIndicator="true"
             height="parent"
             eventDrop={this.drop}
+            eventOverlap="false"
+            disableDragging="true"
           />
           <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
             {" "}
@@ -202,31 +203,28 @@ export default class Calendar extends React.Component {
               </div>
               <hr />
               <div className="row">
-          
-                  <div className="form-group">
-                    <b>Start Date: </b>
-                    <DatePicker
-                      className="form-control"
-                      selected={this.state.start}
-                      onChange={this.handleStartChange}
-                      showTimeSelect
-                      dateFormat="Pp"
-                    />
-                    {/* <br /> */}
-                  </div>
-                
-                
-                  <div className="form-group">
-                    <b>End Date: </b>
-                    <DatePicker
-                      className="form-control"
-                      selected={this.state.end}
-                      onChange={this.handleEndChange}
-                      showTimeSelect
-                      dateFormat="Pp"
-                    />
-                  </div>
-              
+                <div className="form-group">
+                  <b>Start Date: </b>
+                  <DatePicker
+                    className="form-control"
+                    selected={this.state.start}
+                    onChange={this.handleStartChange}
+                    showTimeSelect
+                    dateFormat="Pp"
+                  />
+                  {/* <br /> */}
+                </div>
+
+                <div className="form-group">
+                  <b>End Date: </b>
+                  <DatePicker
+                    className="form-control"
+                    selected={this.state.end}
+                    onChange={this.handleEndChange}
+                    showTimeSelect
+                    dateFormat="Pp"
+                  />
+                </div>
               </div>
               <br />
               <div className="form-group">
