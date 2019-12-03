@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
 }
@@ -21,7 +17,7 @@
   color: #09d3ac;
 }
 
-.concon {
+.container .concon {
   margin-top: 10px;
   background-color: #474f46
 }

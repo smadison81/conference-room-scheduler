@@ -11,13 +11,13 @@ import Row from 'react-bootstrap/Row';
 
 function Main() {
   return (
-    <Container className="concon">
+    <div className="container concon">
      <Navbar />
      <Row>
      <Sidenav />
      <Calendar />
      </Row>
-    </Container>
+    </div>
   );
 }
 

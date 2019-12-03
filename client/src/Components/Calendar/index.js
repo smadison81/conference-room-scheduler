@@ -46,6 +46,27 @@ export default class Calendar extends React.Component {
       .catch(err => console.log(err));
   };
 
+  // add these two functions to your component
+  calculateMinTime = date => {
+    let isToday = moment(date).isSame(moment(), "day");
+    if (isToday) {
+      let nowAddOneHour = moment(new Date())
+        .add({ hours: 1 })
+        .toDate();
+      return nowAddOneHour;
+    }
+    return moment()
+      .startOf("day")
+      .toDate(); // set to 12:00 am today
+  };
+
+  handleDateChange = date => {
+    this.setState({
+      closeDate: date,
+      minTime: this.calculateMinTime(date)
+    });
+  };
+
   openModal = () => {
     this.setState({ modalIsOpen: true });
     console.log("hi");
@@ -155,8 +176,9 @@ export default class Calendar extends React.Component {
   }
 
   render() {
+    this.state.minTime = this.calculateMinTime(new Date());
     return (
-      <Col md="10" style={{ backgroundColor: "white" }}>
+      <Col md="10" style={{ backgroundColor: "white", maxWidth: "82%" }}>
         <div className="cal">
           <FullCalendar
             schedulerLicenseKey="0855724963-fcs-1571147580"
@@ -208,9 +230,16 @@ export default class Calendar extends React.Component {
                   <DatePicker
                     className="form-control"
                     selected={this.state.start}
+                    excludeOutOfBoundTimes
                     onChange={this.handleStartChange}
                     showTimeSelect
                     dateFormat="Pp"
+                    minDate={new Date()}
+                    minTime={this.state.minTime}
+                    maxTime={moment()
+                      .endOf("day")
+                      .toDate()}
+                    timeIntervals={60}
                   />
                   {/* <br /> */}
                 </div>
@@ -219,10 +248,17 @@ export default class Calendar extends React.Component {
                   <b>End Date: </b>
                   <DatePicker
                     className="form-control"
+                    excludeOutOfBoundTimes
                     selected={this.state.end}
                     onChange={this.handleEndChange}
                     showTimeSelect
                     dateFormat="Pp"
+                    minDate={new Date()}
+                    minTime={this.state.minTime}
+                    maxTime={moment()
+                      .endOf("day")
+                      .toDate()}
+                    timeIntervals={30}
                   />
                 </div>
               </div>
