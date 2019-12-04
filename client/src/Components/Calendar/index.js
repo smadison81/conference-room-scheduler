@@ -191,8 +191,8 @@ export default class Calendar extends React.Component {
     this.state.minTime = this.calculateMinTime(new Date());
     const { room } = this.state;
     const options = [
-      { value: "purple", label: "FC 11.2017" },
-      { value: "green", label: "FC 11.2037" }
+      { value: "FC112017", label: "FC 11.2017" },
+      { value: "FC112037", label: "FC 11.2037" }
     ];
     return (
       <Col md="10" style={{ backgroundColor: "white", maxWidth: "82%" }}>
