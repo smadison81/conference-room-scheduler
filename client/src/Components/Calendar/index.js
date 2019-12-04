@@ -14,6 +14,7 @@ import API from "../../utils/API";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import Alert from "sweetalert2";
+import Select from "react-select";
 
 import "./style.css";
 
@@ -25,16 +26,26 @@ import "@fullcalendar/timegrid/main.css";
 export default class Calendar extends React.Component {
   calendarComponentRef = React.createRef();
 
-  state = {
-    calendarWeekends: true,
-    calendarEvent: [],
-    start: "",
-    end: "",
-    title: "",
-    description: "",
-    id: "",
-    modalIsOpen: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      calendarWeekends: true,
+      calendarEvent: [],
+      start: "",
+      end: "",
+      title: "",
+      description: "",
+      id: "",
+      modalIsOpen: false,
+      room: ""
+    };
+  }
+
+  handleStartDate(date) {
+    this.setState({
+      startDate: date
+    });
+  }
 
   getEvents = () => {
     API.getEvents()
@@ -50,7 +61,7 @@ export default class Calendar extends React.Component {
     let isToday = moment(date).isSame(moment(), "day");
     if (isToday) {
       let nowAddOneHour = moment(new Date())
-        .add({ hours: .5 })
+        .add({ hours: 0.5 })
         .toDate();
       return nowAddOneHour;
     }
@@ -87,6 +98,10 @@ export default class Calendar extends React.Component {
     });
   };
 
+  handleChange = room => {
+    this.setState({ room });
+  };
+
   handleTitleChange = event => {
     this.setState({ title: event.target.value });
   };
@@ -104,13 +119,10 @@ export default class Calendar extends React.Component {
      <table class="table">
      <tbody>
      <tr >
-     <td>Title</td>
+     <td>Room</td>
      <td><strong>` +
-        calendarEvent.event.title +
-        `</strong></td>
-     </tr>` +
-        `
-     <tr >
+        calendarEvent.event.extendedProps.room +
+        ` <tr >
      <td>Description</td>
      <td><strong>` +
         calendarEvent.event.extendedProps.description +
@@ -162,7 +174,8 @@ export default class Calendar extends React.Component {
       title: this.state.title,
       start: this.state.start,
       end: end,
-      description: this.state.description
+      description: this.state.description,
+      room: this.state.room.label
     })
       .then(this.closeModal())
       .then(this.getEvents())
@@ -176,6 +189,11 @@ export default class Calendar extends React.Component {
 
   render() {
     this.state.minTime = this.calculateMinTime(new Date());
+    const { room } = this.state;
+    const options = [
+      { value: "purple", label: "FC 11.2017" },
+      { value: "green", label: "FC 11.2037" }
+    ];
     return (
       <Col md="10" style={{ backgroundColor: "white", maxWidth: "82%" }}>
         <div className="cal">
@@ -206,7 +224,7 @@ export default class Calendar extends React.Component {
             navLinks="true"
             eventLimit="true"
             weekends={this.state.calendarWeekends}
-            dateClick={this.handleDateClick}
+            dateClick={this.openModal}
             events={this.state.calendarEvent}
             ref={this.calendarComponentRef}
             eventClick={this.handleEventClick}
@@ -238,7 +256,6 @@ export default class Calendar extends React.Component {
                     // maxTime={moment()
                     //   .endOf("day")
                     //   .toDate()}
-                    
                   />
                   {/* <br /> */}
                 </div>
@@ -257,7 +274,6 @@ export default class Calendar extends React.Component {
                     // maxTime={moment()
                     //   .endOf("day")
                     //   .toDate()}
-                  
                   />
                 </div>
               </div>
@@ -271,6 +287,13 @@ export default class Calendar extends React.Component {
                   onChange={this.handleTitleChange}
                 />
               </div>
+              <br />
+              <b>Conference Room: </b>
+              <Select
+                value={room}
+                onChange={this.handleChange}
+                options={options}
+              />
               <br />
 
               <div className="form-group">

@@ -23,3 +23,11 @@
     /*webkit-filter: blur(2px);filter: blur(2px);*/
     background-image: url("/src/images/xTime-For-Meeting.jpg.pagespeed.ic.z2V5Qh8QWe.jpg");
 }
+
+.clock {
+    color: white; 
+    margin-top: 5px; 
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 25px;
+    padding-bottom: 10px;
+}

@@ -132,8 +132,7 @@ export default class Conf extends Component {
       <div className="empty">
         <img src={welcomeImage} alt="Welcome" />
         <h3>
-          No meetings are scheduled for the day. Create one by clicking the
-          button below.
+          No meetings are scheduled for the day. 
         </h3>
       </div>
     );

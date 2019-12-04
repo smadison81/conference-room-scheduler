@@ -7,6 +7,7 @@ const eventSchema = new Schema(
     start: { type: Date },
     end: { type: Date },
     description: { type: String },
+    room: { type: String },
   },
   {
     timestamps: true
