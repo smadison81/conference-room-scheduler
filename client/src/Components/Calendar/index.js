@@ -51,7 +51,7 @@ export default class Calendar extends React.Component {
     API.getEvents()
       .then(res => {
         this.setState({ calendarEvent: res.data });
-        console.log(res.data);
+        console.log(process.env.REACT_APP_KEY);
       })
       .catch(err => console.log(err));
   };
@@ -194,11 +194,13 @@ export default class Calendar extends React.Component {
       { value: "FC112017", label: "FC 11.2017" },
       { value: "FC112037", label: "FC 11.2037" }
     ];
+
     return (
       <Col md="10" style={{ backgroundColor: "white", maxWidth: "82%" }}>
         <div className="cal">
+          <pre>{process.env.REACT_APP_KEY}</pre>
           <FullCalendar
-            schedulerLicenseKey="0855724963-fcs-1571147580"
+            schedulerLicenseKey="CC-Attribution-NonCommercial-NoDerivatives"
             plugins={[
               dayGridPlugin,
               timeGridPlugin,

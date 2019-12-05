@@ -48,7 +48,7 @@ export default class Navbar extends React.Component {
             alt=""
           />
           <div className="lead">
-            Division of Cancer Medicine Conference Room Reservation System{" "}
+            {" "}
           </div>
           <Row style={{ marginBottom: "10px" }}>
             <Col>
