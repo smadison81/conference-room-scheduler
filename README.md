@@ -11,7 +11,6 @@
 This is a simple MERN Conference Room Scheduling / Dashboard Application.  Users can enter reseverations on a main calander application and view if the room is available on a dashboard that can be placed outside of the room using a iPad or rasberry pi setup.  The goal of this application is to allow a user to reserve a room and have immedidiate feedback on that rooms reseveration status on the main calendar and on the dashboard, which will be located outside of the conference room.
 
 ## Technologies
-* React Meeting Room - https://github.com/sivadass/react-meeting-room
 * Fullcalendar.io
 * Heroku
 * MongoDB
