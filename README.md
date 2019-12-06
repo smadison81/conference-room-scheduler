@@ -45,7 +45,7 @@ npm install
 
 ## Screenshots
 
-![Demostration GIF](https://i.imgur.com/xClnGqb.gif)
+
 <h3>Calendar View</h3>
 
 ![Screen1](https://i.imgur.com/7B2YdGQ.png)
